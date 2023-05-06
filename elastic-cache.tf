@@ -4,7 +4,7 @@ resource "aws_elasticache_cluster" "redis" {
   engine               = "redis"
   node_type            = "cache.t3.small"
   num_cache_nodes      = 1
-  parameter_group_name = aws_elasticache_parameter_group.redis_pg.name
+  parameter_group_name = aws_elasticache_parameter_group.default.name
   engine_version       = "6.x"
   port                 = 6379
   security_group_ids   =  [aws_security_group.allow_redis.id]
@@ -12,8 +12,8 @@ resource "aws_elasticache_cluster" "redis" {
 }
 
 #CREATES PARAMETER GROUP
-resource "aws_elasticache_parameter_group" "redis_pg" {
-  name            = "robot-${var.ENV}-redis-pg"
+resource "aws_elasticache_parameter_group" "default" {
+  name            = "robot-${var.ENV}-redis"
   family          = "redis6.x"
 }
 
